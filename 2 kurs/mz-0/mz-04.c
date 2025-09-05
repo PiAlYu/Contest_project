@@ -1,44 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Функция сравнения по значению (неубывание)
-int compare_value_ch(const void *a, const void *b)
+int
+compare_value_ch(const void *a, const void *b)
 {
-    return *(int*)a - *(int*)b;
+    int arg1 = *(const int *) a;
+    int arg2 = *(const int *) b;
+    return (arg1 > arg2) - (arg1 < arg2);
 }
 
-// Функция сравнения по значению (невозрастание)
-int compare_value_nech(const void *a, const void *b)
+int
+compare_value_nech(const void *a, const void *b)
 {
-    return *(int*)b - *(int*)a;
+    int arg1 = *(const int *) a;
+    int arg2 = *(const int *) b;
+    return (arg1 < arg2) - (arg1 > arg2);
 }
 
-// Функция сравнения по остатку
-int compare_ost(const void *a, const void *b)
+int
+compare_ost(const void *a, const void *b)
 {
-    return *(int*)a % 2 - *(int*)b % 2;
+    int arg1 = *(const int *) a;
+    int arg2 = *(const int *) b;
+    return (arg2 % 2 == 0) - (arg1 % 2 == 0);
 }
 
-// Функция сортировки
-void sort(size_t count, int *data)
+void
+sort_even_odd(size_t count, int *data)
 {
-    // делим на чётные и нечётные
     qsort(data, count, sizeof(int), compare_ost);
 
-    // ищем индекс разделения чётных и нечётных
-    int ind = 0;
-    for (int i = 0; i < count; i++)
-    {
-        if (data[i] % 2 != 0)
-        {
-            ind = i;
+    size_t partition_index = count;
+    for (int i = 0; i < count; i++) {
+        if (data[i] % 2 != 0) {
+            partition_index = i;
             break;
         }
     }
 
-    // сортировка чётных
-    qsort(data, ind, sizeof(int), compare_value_ch);
+    qsort(data, partition_index, sizeof(int), compare_value_ch);
 
-    // сортировка нечётных
-    qsort(data + ind, count - ind, sizeof(int), compare_value_nech);
+    qsort(data + partition_index, count - partition_index, sizeof(int), compare_value_nech);
 }
