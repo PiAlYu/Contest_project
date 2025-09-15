@@ -7,11 +7,11 @@ compare(const void *a, const void *b)
     int arg1 = *(const int *) a;
     int arg2 = *(const int *) b;
 
-    if ((arg1 % 2 == 0) != (arg2 % 2 == 0)) {
-        return (arg2 % 2 == 0) - (arg1 % 2 == 0);
+    if (((arg1 & 1) == 0) != ((arg2 & 1) == 0)) {
+        return ((arg2 & 1) == 0) - ((arg1 & 1) == 0);
     }
 
-    if (arg1 % 2 == 0) {
+    if ((arg1 & 1) == 0) {
         return (arg1 > arg2) - (arg1 < arg2);
     } else {
         return (arg1 < arg2) - (arg1 > arg2);
