@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
+enum
+{
+    N_MAX = 10,
+};
 
 void
-recursion(char *str, char *alp, int l, int n)
+function(char *str, char *alp, int l, int n)
 {
     if (l == n) {
         str[l] = '\0';
@@ -13,7 +17,7 @@ recursion(char *str, char *alp, int l, int n)
             if (alp[i] == 0) {
                 alp[i] = 1;
                 str[l] = '1' + i;
-                recursion(str, alp, l + 1, n);
+                function(str, alp, l + 1, n);
                 alp[i] = 0;
             }
         }
@@ -26,13 +30,13 @@ main(void)
     int n;
     if (scanf("%d", &n) < 1) {
         return 1;
-    } else if (n < 0 || n >= 10) {
+    } else if (n < 0 || n >= N_MAX) {
         return 1;
     }
-    char str[n + 1], alp[n];
+    char str[N_MAX + 1], alp[N_MAX];
     for (int i = 0; i < n; i++) {
         alp[i] = 0;
     }
-    recursion(str, alp, 0, n);
+    function(str, alp, 0, n);
     return 0;
 }
