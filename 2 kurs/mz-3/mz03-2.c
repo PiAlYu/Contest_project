@@ -15,7 +15,7 @@ main(int argc, char *argv[])
     errno = 0;
     for (int i = 0; i < argc - 1; i++) {
         temp = strtol(argv[i + 1], &endptr, SYSTEM_BASE);
-        if (errno || endptr == argv[i] || (int) temp != temp) {
+        if (errno || endptr == argv[i + 1] || (int) temp != temp) {
             return 1;
         }
         if (temp > 0) {
